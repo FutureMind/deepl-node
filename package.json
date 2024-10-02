@@ -62,5 +62,9 @@
         "format:fix": "prettier --write .",
         "test": "jest",
         "test:coverage": "jest --coverage --reporters=\"default\" --reporters=\"jest-junit\""
-    }
+    },
+    "precommit": [
+        "install",
+        "build"
+    ]
 }

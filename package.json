@@ -1,14 +1,14 @@
 {
     "name": "deepl-node",
-    "description": "deepl-node is the official DeepL Node.js client library",
-    "version": "1.14.0~1",
+    "description": "deepl-node is the official DeepL Node.js client library. Note this repo is forked!",
+    "version": "1.14.0",
     "author": "DeepL SE <open-source@deepl.com> (https://www.deepl.com)",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git://github.com/DeepLcom/deepl-node.git"
+        "url": "https://github.com/FutureMind/deepl-node.git"
     },
-    "bugs": "https://github.com/DeepLcom/deepl-node/issues",
+    "bugs": "https://github.com/FutureMind/deepl-node/issues",
     "homepage": "https://www.deepl.com/",
     "engines": {
         "node": ">=12.0"

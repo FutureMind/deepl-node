@@ -283,11 +283,11 @@ function buildURLSearchParams(
 
     if (targetLang === 'en') {
         throw new DeepLError(
-            "targetLang='en' is deprecated, please use 'en-GB' or 'en-US' instead.",
+            'targetLang=\'en\' is deprecated, please use \'en-GB\' or \'en-US\' instead.',
         );
     } else if (targetLang === 'pt') {
         throw new DeepLError(
-            "targetLang='pt' is deprecated, please use 'pt-PT' or 'pt-BR' instead.",
+            'targetLang=\'pt\' is deprecated, please use \'pt-PT\' or \'pt-BR\' instead.',
         );
     }
 
@@ -580,6 +580,10 @@ export class Translator {
         data.append('show_billed_characters', '1');
         const singular = appendTextsAndReturnIsSingular(data, texts);
         validateAndAppendTextOptions(data, options);
+        // Add text field to data if not exist
+        if (!data.has('text')) {
+            data.append('text', '');  // Use append to add the text parameter
+        }
 
         const { statusCode, content } = await this.httpClient.sendRequestWithBackoff<string>(
             'POST',

@@ -329,25 +329,20 @@ function buildURLSearchParams(
  * @private
  */
 function appendTextsAndReturnIsSingular(data: URLSearchParams, texts: string | string[]): boolean {
-    const singular = !Array.isArray(texts);
-    if (singular) {
-        if (!isString(texts) || texts.length === 0) {
-            throw new DeepLError(
-                'texts parameter must be a non-empty string or array of non-empty strings',
-            );
-        }
-        data.append('text', texts);
-    } else {
-        for (const text of texts) {
-            if (!isString(text) || text.length === 0) {
-                throw new DeepLError(
-                    'texts parameter must be a non-empty string or array of non-empty strings',
-                );
-            }
+    const arrayOfStrings = Array.isArray(texts);
+
+    if (arrayOfStrings) {
+        const nonEmptyTexts = texts.filter((t) => isString(t) && t.length > 0);
+        for (const text of nonEmptyTexts) {
             data.append('text', text);
         }
     }
-    return singular;
+
+    if (!arrayOfStrings && isString(texts) && texts.length > 0) {
+        data.append('text', texts);
+    }
+
+    return !arrayOfStrings;
 }
 
 /**

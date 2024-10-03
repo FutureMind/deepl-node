@@ -283,11 +283,11 @@ function buildURLSearchParams(
 
     if (targetLang === 'en') {
         throw new DeepLError(
-            'targetLang=\'en\' is deprecated, please use \'en-GB\' or \'en-US\' instead.',
+            "targetLang='en' is deprecated, please use 'en-GB' or 'en-US' instead.",
         );
     } else if (targetLang === 'pt') {
         throw new DeepLError(
-            'targetLang=\'pt\' is deprecated, please use \'pt-PT\' or \'pt-BR\' instead.',
+            "targetLang='pt' is deprecated, please use 'pt-PT' or 'pt-BR' instead.",
         );
     }
 
@@ -569,6 +569,11 @@ export class Translator {
         targetLang: TargetLanguageCode,
         options?: TranslateTextOptions,
     ): Promise<T extends string ? TextResult : TextResult[]> {
+        // Replace 'hr' with 'en-us'
+        if (targetLang.toLowerCase() === 'hr') {
+            targetLang = 'en-us' as TargetLanguageCode;
+        }
+
         const data = buildURLSearchParams(
             sourceLang,
             targetLang,
@@ -582,7 +587,7 @@ export class Translator {
         validateAndAppendTextOptions(data, options);
         // Add text field to data if not exist
         if (!data.has('text')) {
-            data.append('text', '');  // Use append to add the text parameter
+            data.append('text', ''); // Use append to add the text parameter
         }
 
         const { statusCode, content } = await this.httpClient.sendRequestWithBackoff<string>(
